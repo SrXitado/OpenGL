@@ -2,7 +2,9 @@
 #include <glfw/glfw3.h> 
 #include <iostream>
 
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void debug();
 
 int main()
 {
@@ -14,7 +16,7 @@ int main()
 
     
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -23,20 +25,7 @@ int main()
     }
     glfwMakeContextCurrent(window);
 
-    glfwSetErrorCallback([](int code, const char* desc) {
-        std::cout << "GLFW error " << code << ": " << desc << std::endl;
-        });
-
-    if (!glfwInit()) {
-        std::cout << "glfwInit failed" << std::endl;
-        return -1;
-    }
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))   // 2) só depois o GLAD
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
+    debug();
 
     glViewport(-0.5, -0.5, 1280, 720);
 
@@ -46,6 +35,8 @@ int main()
     {
         glfwSwapBuffers(window);
         glfwPollEvents();
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
     }
 
     glfwTerminate();
@@ -56,4 +47,21 @@ int main()
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
+}
+
+void debug() {
+    glfwSetErrorCallback([](int code, const char* desc) {
+        std::cout << "GLFW error " << code << ": " << desc << std::endl;
+        });
+
+    if (!glfwInit()) {
+        std::cout << "glfwInit failed" << std::endl;
+        return;
+    }
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))   // 2) só depois o GLAD
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return;
+    }
 }
