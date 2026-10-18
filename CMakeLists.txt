@@ -6,9 +6,9 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(opengl 
-    main.cpp
+    "main.cpp"
     dependencies/glad.c
-)
+ )
 
 target_include_directories(opengl PRIVATE
     ${CMAKE_SOURCE_DIR}/dependencies
